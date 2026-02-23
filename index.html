@@ -28,18 +28,19 @@
                 const container = document.getElementById('list-container');
                 document.getElementById('loader').classList.add('hidden');
 
-                container.innerHTML = data.map(person => `
-                    <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4">
-                        <div class="bg-blue-100 p-3 rounded-full text-xl">👤</div>
-                        <div>
-                            <div class="text-xs text-gray-400 font-mono">ID: ${รายชื่อ}</div>
-                            <div class="text-lg font-bold text-gray-800">${ตำแหน่งในสภา.}</div>
-                            <div class="text-sm text-blue-600 bg-blue-50 px-2 py-0.5 rounded inline-block">
-                                ${ชื่อ-นามสกุล สมุมติ}
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
+container.innerHTML = data.map(person => `
+    <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 mb-4">
+        <div class="bg-blue-100 p-3 rounded-full text-xl">👤</div>
+        <div>
+            <div class="text-xs text-gray-400 font-mono">ID: ${person['รายชื่อ']}</div>
+            <div class="text-lg font-bold text-gray-800">${person['ชื่อ-นาสกุล สมุมติ']}</div>
+            <div class="text-sm text-blue-600 bg-blue-50 px-2 py-0.5 rounded inline-block">
+                ${person['ตำแหน่งในสภา.']}
+            </div>
+        </div>
+    </div>
+`).join('');
+
             } catch (error) {
                 document.getElementById('loader').innerText = '❌ โหลดข้อมูลไม่สำเร็จ ตรวจสอบ URL อีกครั้ง';
             }
