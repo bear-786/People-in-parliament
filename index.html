@@ -29,6 +29,11 @@
                 document.getElementById('loader').classList.add('hidden');
 
 container.innerHTML = data.map(person => `
+            // ดึง URL รูปภาพจากคอลัมน์ "รูปภาพ (URL)" 
+            // หากไม่มีให้ใช้รูป Default
+            const imageUrl = person['รูปภาพ (URL)'] || 'https://via.placeholder.com/150?text=No+Image';
+
+            return `
     <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4 mb-4">
         <div class="bg-blue-100 p-3 rounded-full text-xl">👤</div>
         <div>
