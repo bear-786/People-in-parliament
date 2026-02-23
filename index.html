@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายชื่อคนในสภา</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-5">
+
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8 text-slate-800">🏛️ รายชื่อสมาชิกสภา</h1>
+        
+        <div id="loader" class="text-center py-10">กำลังดึงข้อมูล...</div>
+
+        <div id="list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
+
+    <script>
+        // *** วาง Connection URL จาก Sheet.best ตรงนี้ ***
+        const API_URL = 'https://api.sheetbest.com/sheets/14632631-5680-46a9-87e9-c053d7999335';
+
+        async function getMembers() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                const container = document.getElementById('list-container');
+                document.getElementById('loader').classList.add('hidden');
+
+                container.innerHTML = data.map(person => `
+                    <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex items-center space-x-4">
+                        <div class="bg-blue-100 p-3 rounded-full text-xl">👤</div>
+                        <div>
+                            <div class="text-xs text-gray-400 font-mono">ID: ${person.id}</div>
+                            <div class="text-lg font-bold text-gray-800">${person.name}</div>
+                            <div class="text-sm text-blue-600 bg-blue-50 px-2 py-0.5 rounded inline-block">
+                                ${person.position}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('loader').innerText = '❌ โหลดข้อมูลไม่สำเร็จ ตรวจสอบ URL อีกครั้ง';
+            }
+        }
+
+        getMembers();
+    </script>
+</body>
+</html>
